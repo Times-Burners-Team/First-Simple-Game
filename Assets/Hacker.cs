@@ -5,6 +5,8 @@ using UnityEngine;
 public class Hacker : MonoBehaviour {
 
 	// Use this for initialization
+	// Game state
+	int level;
 	void Start () {
 		ShowMainMenu();
 	}
@@ -18,16 +20,25 @@ public class Hacker : MonoBehaviour {
 		Terminal.WriteLine("Enter your selection:");
 	}
 		
+		
 	void OnUserInput(string input) {
-		if (input == "menu"){
+		if (input == "menu") {
 			ShowMainMenu();
-		} else (input == "007") {
+		} else if (input == "007") {
 			Terminal.WriteLine("Please select a level Mr Bond");
+		} else if (input == "1"){
+			level = 1;
+			StartGame(1);
+		} else if (input == "2"){
+			level = 2;
+			StartGame(2); 
 		} else {
-			Terminal.WriteLine("Please choose a valid level")
+			Terminal.WriteLine("Please choose a valid level");
 		}
 	}
-		void Update () {
-		
+	void StartGame(int level){
+		Terminal.WriteLine("You have chosen level " + level);
+		Terminal.WriteLine("Please enter your password: ");
 	}
+	
 }
