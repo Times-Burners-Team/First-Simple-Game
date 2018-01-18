@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Hacker : MonoBehaviour {
 
-	// Use this for initialization
+	// Game configuration data
+	string[] level1Passwords = { "books", "aisle", "self", "password", "font", "borrow" };
+	string[] level2Passwords = { "prisoner", "handcuffs", "holster", "uniform", "arrest" };
+	
 	// Game state
 	int level;
 	enum Screen { MainMenu, Password, Win };
@@ -42,22 +45,16 @@ public class Hacker : MonoBehaviour {
     }
 
     void RunMainMenu(string input)
-    {
-        if (input == "007")
+    {	
+		bool isValidLevelNumber = (input == "1" || input == "2");
+		if (isValidLevelNumber)
+		{
+			level = int.Parse(input);
+			StartGame();
+		}
+        else if (input == "007") // easter egg
         {
             Terminal.WriteLine("Please select a level Mr Bond");
-        }
-        else if (input == "1")
-        {
-            level = 1;
-			password = "donkey";
-            StartGame(1);
-        }
-        else if (input == "2")
-        {
-            level = 2;
-			password = "combobulate";
-            StartGame(2);
         }
         else
         {
@@ -65,21 +62,69 @@ public class Hacker : MonoBehaviour {
         }
     }
 
-    void StartGame(int level) 
+    void StartGame() 
 	{
+		print (level1Passwords.Length);
+		print (level2Passwords.Length);
 		currentScreen = Screen.Password;
-		Terminal.WriteLine("You have chosen level " + level);
+		Terminal.ClearScreen();
+		switch(level)
+		{
+			case 1:
+				password = level1Passwords[Random.Range(0, level1Passwords.Length)];
+				break;
+			case 2:
+				password = level2Passwords[Random.Range(0, level2Passwords.Length)];
+				break;
+			default:
+				Debug.LogError("Invalid level number!");
+				break;
+		}
 		Terminal.WriteLine("Please enter your password: ");
 	}
 	void CheckPassword(string input)
 	{
 		if (input == password)
 		{
-			Terminal.WriteLine("WELL DONE!");
+			DisplayWinScreen();
 		}
 		else 
 		{
 			Terminal.WriteLine("TRY AGAIN!");
 		}
 	}
+	void DisplayWinScreen()
+	{
+		currentScreen = Screen.Win;
+		Terminal.ClearScreen();
+		ShowLevelReward();
+	}
+	void ShowLevelReward()
+	{
+		switch(level)
+		{
+			case 1:
+				Terminal.WriteLine("Have a book...");
+				Terminal.WriteLine(@"
+	 _______
+    /      //
+   /      //
+  /_____ //
+ (______(/  				
+"				);
+				break;
+			case 2:
+				Terminal.WriteLine("You got a prison key!");
+				Terminal.WriteLine(@"
+   __
+  /0 \_______
+  \__/-=' = '     				
+"				);
+				break;
+			default:
+				Debug.LogError("Invalid level reached");
+				break;
+		}
+	}
 }
+
