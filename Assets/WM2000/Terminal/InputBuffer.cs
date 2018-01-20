@@ -50,6 +50,6 @@
     private void SendCommand(string command)
     {
         onCommandSent(command);
-        currentInputLine = "";
+        currentInputLine = "- ";
     } 
 }

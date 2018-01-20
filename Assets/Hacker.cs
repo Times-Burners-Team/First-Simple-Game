@@ -5,7 +5,7 @@ using UnityEngine;
 public class Hacker : MonoBehaviour {
 
 	// Game configuration data
-	const string menuHint = "You may type menu at any time.";
+	const string menuHint = "- You may type menu at any time.";
 	string[] level1Passwords = { "books", "aisle", "shelf", "password", "font", "borrow" };
 	string[] level2Passwords = { "prisoner", "handcuffs", "holster", "uniform", "arrest" };
 	string[] level3Passwords = { "starfield", "telescope", "environment", "exploration", "astonauts" };
@@ -24,11 +24,11 @@ public class Hacker : MonoBehaviour {
 	void ShowMainMenu () {
 		currentScreen = Screen.MainMenu;
 		Terminal.ClearScreen();
-		Terminal.WriteLine("What would you like to hack into?");
-		Terminal.WriteLine("Press 1 for the local library");
-		Terminal.WriteLine("Press 2 for the police station");
-		Terminal.WriteLine("Press 3 for the NASA!");
-		Terminal.WriteLine("Enter your selection:");
+		Terminal.WriteLine("- What would you like to hack into?");
+		Terminal.WriteLine("- Press 1 for the local library");
+		Terminal.WriteLine("- Press 2 for the police station");
+		Terminal.WriteLine("- Press 3 for the NASA!");
+		Terminal.WriteLine("- Enter your selection:");
 	}
 		
 		
